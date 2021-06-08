@@ -1,0 +1,86 @@
+pico-8 cartridge // http://www.pico-8.com
+version 32
+__lua__
+function _init()
+	particles  = {}
+end
+
+function parts(x,y,c,size)
+p = {}
+p.x = x
+p.y = y
+p.c = c
+p.dx = 0
+p.dy = 0
+p.bounce = 0.5
+p.gravity = 0.05
+add(particles,p)
+end
+
+function add_p()
+	x = flr(48+rnd(2))
+	y = -9
+	c = 7
+	parts(x,y,c)
+end
+
+function _update60()
+	add_p(px)
+	
+	particle_drop()
+end
+
+function _draw()
+	cls()
+	ps = particles
+	for i=1,#ps do
+		pset(ps[i].x,ps[i].y,ps[i].c)
+	end
+end
+
+function particle_drop()
+	for i=#particles,1,-1 do
+		local ps = particles[i]
+	 
+	 ps.dx = 0.2
+	 
+	 ps.dx += ps.dx/1.2
+		ps.dy += ps.gravity
+	 
+	 if pget(ps.x,ps.y+1) == 7 
+	 	or ps.y > 99 then
+	 	if ps.dy >1 then
+	 		ps.dy *= -1
+	 		ps.dy *= ps.bounce
+	 	else
+	 		ps.dy = 0
+	 	end
+	 end
+	 
+	 if pget(ps.x+1,ps.y) == 7
+	 	or ps.x > 128 then
+	 	if ps.dx >= 0 then
+	 	ps.dx = -0.2
+	 	else
+	 	ps.dx = 0.2
+	 	end
+	 end
+		
+		ps.x += ps.dx
+		ps.y += ps.dy
+		
+		ps.y = mid(-10,ps.y,100)
+		ps.x = mid(0,ps.x,127)
+	
+		if ps.x-1 < 1 then
+	 	del(particles,ps)
+	 end
+	end
+end
+__gfx__
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00700700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00077000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00077000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00700700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
