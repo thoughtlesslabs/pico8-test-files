@@ -4,10 +4,10 @@ __lua__
 -- wall bounce tests
 
 function _init()
-	bx = 8
-	by = 8
+	bx = 10
+	by = 10
 	bdx = 0
-	bdy = 0
+	bdy = 1
 end
 
 function _update60()
@@ -17,16 +17,20 @@ function _update60()
 		bdx = -bdx
 		
 	end
-	if by < 5 or by > 120 then
+	if by < 5 or by > 110 then
 		bdy = -bdy
 	end
 	if btnp(4) then
 		bdx = 1
 	elseif btnp(5) then
-		bdy = 1
+		bdy = -20
 	end
 	
-	bdy = bdy*0.8
+	if by <=115 then
+	bdy += 0.5
+	else
+	bdy = 0
+	end
 	
 	bx += bdx
 	by += bdy
