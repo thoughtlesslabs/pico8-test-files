@@ -26,6 +26,8 @@ function _update60()
 		bdy = 1
 	end
 	
+	bdy = bdy*0.8
+	
 	bx += bdx
 	by += bdy
 end
@@ -34,6 +36,8 @@ function _draw()
 	cls()
 	circfill(bx,by,5,4)
 	print(bdx)
+	print(bdy)
+
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
