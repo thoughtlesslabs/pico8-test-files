@@ -4,44 +4,58 @@ __lua__
 -- wall bounce tests
 
 function _init()
-	bx = 10
-	by = 10
+	bx = 50
+	by = 50
 	bdx = 0
 	bdy = 1
+	bdx_max = 2
 end
 
 function _update60()
-
-	
-	if bx > 120 or bx < 5 then
-		bdx = -bdx
-		
+	if bdx < bdx_max then
+		if btn(0) then
+			bdx += -0.5
+		elseif btn(1) then
+			bdx += 0.5
+		end
 	end
-	if by < 5 or by > 110 then
-		bdy = -bdy
-	end
-	if btnp(4) then
-		bdx = 1
-	elseif btnp(5) then
-		bdy = -20
+	if btnp(2) then
+		bdy = -5
 	end
 	
-	if by <=115 then
-	bdy += 0.5
-	else
-	bdy = 0
+	if by == 110 then
+		bdx /=1.05
+	end
+	if abs(bdx) < 0.05 then 
+		bdx=0
 	end
 	
+	bdy += 0.3
 	bx += bdx
-	by += bdy
+	by += bdy + 0.5
+	
+	check_collision(bx,by)
+
+	bx = mid(5,bx,120)
+	by = mid(5,by,110)
+
 end
 
 function _draw()
 	cls()
 	circfill(bx,by,5,4)
-	print(bdx)
+	print(by)
 	print(bdy)
 
+end
+
+function check_collision(x,y)
+	if x > 120 or x < 5 then
+		bdx = -bdx
+	end
+	if y < 5 or y >= 110 then
+			bdy = -bdy
+	end
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
