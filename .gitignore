@@ -1,2 +1,5 @@
 # Ignore Mac DS Files
 .DS_Store
+
+*.bin
+*.p8.png
