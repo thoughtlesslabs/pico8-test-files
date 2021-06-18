@@ -31,13 +31,13 @@ function _update60()
 	end
 
 	if btnp(2) then
-		if by > 105 then
+		if by > 104 then
 			bdy = -10
 		end
 	end
 	
 	if by == 110 then
-		bdx /=1.05
+		bdx /=1.02
 	end
 	
 	if abs(bdx) < 0.05 then 
@@ -53,7 +53,7 @@ function _update60()
 		power = 0
 	end
 	
-	bdy += 0.3
+	bdy += 0.5
 	bx += bdx
 	by += bdy + 0.8
 	
@@ -78,7 +78,7 @@ function check_collision(x,y)
 	if x > 120 or x < 5 then
 		bdx = -bdx
 	end
-	if y < 5 or y >= 110 then
+	if y < 5 or y > 111 then
 			bdy = -bdy
 	end
 end
