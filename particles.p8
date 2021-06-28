@@ -4,16 +4,12 @@ __lua__
 function _init()
  cls()
  particles = {}
- wait = 30
+ wait = 10
  counter = 0
 end
 
 function _update60()
-	wait -= 1
-	if wait <= 0 then
-		make_particles()
-		wait = 20
-	end
+	make_particles()
 	update_particles()
 end
 
@@ -24,14 +20,15 @@ end
 
 function parts(col)
 	p = {}
-	p.x=60
-	p.y=30
+	p.x=60+rnd(30)
+	p.y=30+rnd(30)
 	p.dx = 0
 	p.dy = 0
 	p.age = 0
 	p.max = 100
-	p.size = 3
+	p.size = 1
 	p.c = col
+	p.colarray = {12,6,4,9}
 	add(particles,p)
 end
 
@@ -57,15 +54,15 @@ function update_particles()
 		pts = particles[i]
 		pts.age +=1
 		if pts.age > pts.max then
-			del(particles,pts)
+			pts.size-=1.5
 		else
-		
-		pts.size +=0.5
-		
-		pts.dy = cos(1)
-		
-		pts.x -= pts.dx
-		pts.y += pts.dy
+
+			pts.size +=0.5
+			
+			pts.dy = sin(1.5)*20
+			
+			pts.x += pts.dx
+			pts.y += pts.dy
 		end
 	end
 
